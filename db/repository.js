@@ -15,16 +15,16 @@ const ObjectId = require('mongodb').ObjectId;
 //   usersCol = db.collection('users');
 // })();
 
-const getPosts = async () => {
+const getListings = async () => {
   return await Listing.find();
 }
 
-const addPost = async (post) => {
-  const result =  await Listing.create(post, (err, createdPost) => {
+const addListing = async (listing) => {
+  const result = await Listing.create(listing, (err, createdListing) => {
     if (err) {
       console.log(err);
     } else {
-      return createdPost._id
+      return createdListing._id
     }
   });
 }
@@ -34,9 +34,14 @@ const validateUser = async (username) => {
   return user.length !== 0 ? user[0]._id : false;
 }
 
+const getUser = async (userId) => {
+  return await User.find({_id: ObjectId(userId)});
+}
+
 
 module.exports = {
-  addPost,
-  getPosts,
+  addListing,
+  getListings,
   validateUser,
+  getUser
 }

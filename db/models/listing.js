@@ -12,9 +12,10 @@ const listingSchema = new Schema({
        color: String,
        category: String,
        size: String,
+       gender: String,
        price: {type: Number, required: true},
       },
-    pictures: [ ],
+    pictures: [],
     bookings: [
         {
             start: Date,
