@@ -1,19 +1,9 @@
 require('./db.js');
-// require('./newUsers.js');
 const User = require('./models/user.js');
-const Listing = require('./models/listing.js')
+const Listing = require('./models/listing.js');
+const Review = require('./models/review.js');
 
 const ObjectId = require('mongodb').ObjectId;
-// let db;
-// let postsCol;
-// let usersCol;
-
-// (async function() {
-//   console.log('initializing db');
-//   db = await connect();
-//   postsCol = db.collection('posts');
-//   usersCol = db.collection('users');
-// })();
 
 const getListings = async () => {
   return await Listing.find();
@@ -38,10 +28,22 @@ const getUser = async (userId) => {
   return await User.find({_id: ObjectId(userId)});
 }
 
+const getReviews = async (userId) => {
+  return await Review.find({owner: ObjectId(userId)});
+}
+
+const getRating = async (userId) => {
+  const reviews = await Review.find({owner: ObjectId(userId)});
+  const ratingTotal = reviews.map(review => review.rating).reduce((a, b) => a + b);
+  const ratingAverage = ratingTotal / reviews.length;
+  return ratingAverage;
+}
 
 module.exports = {
   addListing,
   getListings,
   validateUser,
-  getUser
+  getUser,
+  getReviews,
+  getRating
 }

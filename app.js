@@ -1,5 +1,4 @@
 const cors = require('cors');
-const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
@@ -8,6 +7,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const listingsRouter = require('./routes/listings');
 const loginRouter = require('./routes/login');
+const reviewsRouter = require('./routes/reviews');
 
 const app = express();
 
@@ -24,6 +24,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/listings', listingsRouter);
 app.use('/login', loginRouter);
+app.use('/reviews', reviewsRouter);
 
 
 // // catch 404 and forward to error handler
