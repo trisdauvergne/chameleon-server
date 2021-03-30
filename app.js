@@ -1,18 +1,20 @@
 const cors = require('cors');
 const createError = require('http-errors');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 require('dotenv').config();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
 const PORT = process.env.PORT || '3001';
 
 app.use(express.static('public'));
-
+app.use(cookieParser());
 app.use(fileUpload({ createParentPath: true }));
 app.use(cors());
 app.use(express.json());
@@ -21,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
+app.use('/login', loginRouter);
 
 
 // // catch 404 and forward to error handler

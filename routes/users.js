@@ -6,4 +6,8 @@ router.get('/', (req, res) => {
   res.json({ msg: "this is the users endpoint" });
 });
 
+// setting new users
+
+// getting specific user
+
 module.exports = router;

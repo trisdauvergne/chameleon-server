@@ -1,5 +1,6 @@
-const { connect } = require('./db.js');
-const users = require('./models/user.js');
+require('./db.js');
+// require('./newUsers.js');
+const User = require('./models/user.js');
 const Listing = require('./models/listing.js')
 
 const ObjectId = require('mongodb').ObjectId;
@@ -28,7 +29,14 @@ const addPost = async (post) => {
   });
 }
 
+const validateUser = async (username) => {
+  const user = await User.find({ username });
+  return user.length !== 0 ? user[0]._id : false;
+}
+
+
 module.exports = {
   addPost,
   getPosts,
+  validateUser,
 }
