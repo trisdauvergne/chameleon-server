@@ -8,7 +8,8 @@ const bookingSchema = new Schema({
     renterId: {type: Schema.Types.ObjectId, required: true},
     bookingFrom: {type: Date, required: true},
     bookingTo: {type: Date, required: true},
-    accepted: {type: Boolean, default: false}
+    accepted: {type: Boolean, default: false},
+    completed: {type: Boolean, default: false}
 })
 
 module.exports = mongoose.model('Booking', bookingSchema);

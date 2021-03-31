@@ -36,6 +36,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const listing = createListing(req);
+  console.log(listing);
   const listingId = await addListing(listing);  
   req.files.image.mv(`public/uploads/${listing.pictures[0]}`);
   res.location(`/listings/${listingId}`).sendStatus(201);
