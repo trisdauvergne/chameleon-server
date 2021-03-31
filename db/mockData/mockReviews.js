@@ -40,6 +40,13 @@ const reviewFive = new Review({
   date: Date.now(),
 });
 
+const reviewSix = new Review({
+  renterId: ObjectId('60630e4a4788aa76cd4e3b52'),
+  ownerId: ObjectId('60630e4a4788aa76cd4e3b4f'),
+  rating: 2,
+  date: Date.now(),
+});
+
 reviewOne.save((err) => {
   if (err) {
     console.log(err);
@@ -65,6 +72,12 @@ reviewFour.save((err) => {
 });
 
 reviewFive.save((err) => {
+  if (err) {
+    console.log(err);
+  }
+});
+
+reviewSix.save((err) => {
   if (err) {
     console.log(err);
   }

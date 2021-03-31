@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addListing, getListings, getListingOwner } = require('../db/repository.js');
+const { addListing, getListings, getListingOwner, getActiveListings } = require('../db/repository.js');
 const { v4 } = require ('uuid');
 
 const createListing = (req) => {
@@ -23,11 +23,16 @@ const createListing = (req) => {
   return { ...listing, pictures: [imageName] }
 }
 
-/* GET Listings listing. */
+
 router.get('/', async (req, res) => {
   const listings = await getListings();
   res.json(listings);
 });
+
+router.get('/active/:id', async (req, res) => {
+  const activeListings = await getActiveListings(req.params.id);
+  res.json(activeListings);
+})
 
 router.get('/:id', async (req, res) => {
   const ownerId = await getListingOwner(req.params.id);
@@ -40,11 +45,6 @@ router.post('/', async (req, res) => {
   const listingId = await addListing(listing);  
   req.files.image.mv(`public/uploads/${listing.pictures[0]}`);
   res.location(`/listings/${listingId}`).sendStatus(201);
-});
-
-router.get('/hello', async (req, res) => {
-  const image = await getImage();
-  res.send(image);
 });
 
 module.exports = router;
