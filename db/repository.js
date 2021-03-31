@@ -2,6 +2,7 @@ require('./db.js');
 const User = require('./models/user.js');
 const Listing = require('./models/listing.js');
 const Review = require('./models/review.js');
+const Booking = require('./models/booking.js');
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -29,15 +30,34 @@ const getUser = async (userId) => {
 }
 
 const getReviews = async (userId) => {
-  return await Review.find({owner: ObjectId(userId)});
+  return await Review.find({ownerId: ObjectId(userId)});
 }
 
 const getRating = async (userId) => {
-  const reviews = await Review.find({owner: ObjectId(userId)});
+  const reviews = await Review.find({ownerId: ObjectId(userId)});
   const ratingTotal = reviews.map(review => review.rating).reduce((a, b) => a + b);
   const ratingAverage = ratingTotal / reviews.length;
   return ratingAverage;
 }
+
+const addBooking = async (req, renterId) => {
+  const newBooking = {
+    ...req, renterId
+  };
+
+  await Booking.create(newBooking, (err, createdBooking) => {
+    if (err) {
+      console.log(err);
+    } else {
+      return createdBooking._id
+    }
+  });
+}
+
+const getListingOwner = async (listingId) => {
+  const listing = await Listing.find({_id: ObjectId(listingId)});
+  return listing[0].ownerId;
+};
 
 module.exports = {
   addListing,
@@ -45,5 +65,7 @@ module.exports = {
   validateUser,
   getUser,
   getReviews,
-  getRating
+  getRating,
+  addBooking,
+  getListingOwner,
 }

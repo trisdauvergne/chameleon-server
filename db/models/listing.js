@@ -3,10 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
-    owner: {type: Schema.Types.ObjectId, required: true},
+    ownerId: {type: Schema.Types.ObjectId, required: true},
     title: {type: String, required: true},
-    available: {type: Boolean, required: true, default: true},
-    renter: Schema.Types.ObjectId,
     description: String,
     attributes: {
        color: String,
@@ -15,13 +13,7 @@ const listingSchema = new Schema({
        gender: String,
        price: {type: Number, required: true},
       },
-    pictures: [],
-    bookings: [
-        {
-            start: Date,
-            end: Date
-        },
-    ]
+    pictures: []
 })
 
 module.exports = mongoose.model('Listing', listingSchema);

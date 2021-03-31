@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addListing, getListings } = require('../db/repository.js');
+const { addListing, getListings, getListingOwner } = require('../db/repository.js');
 const { v4 } = require ('uuid');
 
 const createListing = (req) => {
@@ -15,7 +15,7 @@ const createListing = (req) => {
       gender: body.gender,
       price: body.price
     },
-    owner: req.cookies['userId']
+    ownerId: req.cookies['userId']
   };
 
   const ext = req.files.image.name.split('.').reverse()[0];
@@ -27,6 +27,11 @@ const createListing = (req) => {
 router.get('/', async (req, res) => {
   const listings = await getListings();
   res.json(listings);
+});
+
+router.get('/:id', async (req, res) => {
+  const ownerId = await getListingOwner(req.params.id);
+  res.json(ownerId);
 });
 
 router.post('/', async (req, res) => {
