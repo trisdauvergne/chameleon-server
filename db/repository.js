@@ -111,6 +111,16 @@ const updateBooking = async (bookingId, updatedBooking) => {
   });
 } 
 
+const getRentals = async (renterId) => {
+  return await Booking.find({renterId}, (err, result) => {
+    if (err){
+      return err;
+    } else {
+      return result;
+    }
+  });
+}
+
 module.exports = {
   addListing,
   getListings,
@@ -125,5 +135,6 @@ module.exports = {
   deleteListing,
   getBookingsForListing,
   updateBooking,
-  deleteBooking
+  deleteBooking,
+  getRentals
 }
