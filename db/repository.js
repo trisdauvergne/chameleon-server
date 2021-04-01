@@ -86,6 +86,10 @@ const deleteListing = async (listingId) => {
   })
 }
 
+const getBookingsForListing = async (listingId) => {
+  return await Booking.find({ listingId });
+}
+
 module.exports = {
   addListing,
   getListings,
@@ -97,5 +101,6 @@ module.exports = {
   getListing,
   getActiveListings,
   updateListing,
-  deleteListing
+  deleteListing,
+  getBookingsForListing
 }
