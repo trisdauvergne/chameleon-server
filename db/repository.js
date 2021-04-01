@@ -58,6 +58,16 @@ const addBooking = async (req, renterId) => {
   });
 }
 
+const deleteBooking = async (bookingId) => {
+  await Booking.findByIdAndDelete(bookingId, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return result;
+    }
+  })
+};
+
 const getListing = async (listingId) => {
   const listing = await Listing.find({_id: ObjectId(listingId)});
   return listing[0];
@@ -91,6 +101,16 @@ const getBookingsForListing = async (listingId) => {
   return await Booking.find({ listingId });
 }
 
+const updateBooking = async (bookingId, updatedBooking) => {
+  await Booking.findByIdAndUpdate({_id: bookingId}, updatedBooking, (err, result) => {
+    if (err){
+      return err;
+    } else {
+      return result._id;
+    }
+  });
+} 
+
 module.exports = {
   addListing,
   getListings,
@@ -103,5 +123,7 @@ module.exports = {
   getActiveListings,
   updateListing,
   deleteListing,
-  getBookingsForListing
+  getBookingsForListing,
+  updateBooking,
+  deleteBooking
 }
