@@ -26,7 +26,8 @@ const validateUser = async (username) => {
 }
 
 const getUser = async (userId) => {
-  return await User.find({_id: ObjectId(userId)});
+  const user = await User.find({_id: ObjectId(userId)});
+  return user[0];
 }
 
 const getReviews = async (userId) => {
