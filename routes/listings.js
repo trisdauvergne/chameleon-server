@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addListing, getListings, getListingOwner, getActiveListings } = require('../db/repository.js');
+const { addListing, getListings, getListing, getActiveListings, updateListing, deleteListing } = require('../db/repository.js');
 const { v4 } = require ('uuid');
 
 const createListing = (req) => {
@@ -18,9 +18,12 @@ const createListing = (req) => {
     ownerId: req.cookies['userId']
   };
 
+  if (req.body.currentimage) {
+    return { ...listing, pictures: [req.body.currentimage] };
+  }
   const ext = req.files.image.name.split('.').reverse()[0];
   const imageName = v4() + '.' + ext;
-  return { ...listing, pictures: [imageName] }
+  return { ...listing, pictures: [imageName] };
 }
 
 
@@ -35,16 +38,30 @@ router.get('/active/:id', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const ownerId = await getListingOwner(req.params.id);
-  res.json(ownerId);
+  const listing = await getListing(req.params.id);
+  res.json(listing);
+});
+
+router.post('/:id', async (req, res) => {
+  console.log('update listing: ', req.body);
+  const listing = createListing(req);
+  const listingId = await updateListing(listing, req.params.id);;
+  if (req.files) {
+    req.files.image.mv(`public/uploads/${req.body.currentimage}`);
+  }
+  res.location(`/listings/${listingId}`).sendStatus(204);
 });
 
 router.post('/', async (req, res) => {
   const listing = createListing(req);
-  console.log(listing);
   const listingId = await addListing(listing);  
   req.files.image.mv(`public/uploads/${listing.pictures[0]}`);
   res.location(`/listings/${listingId}`).sendStatus(201);
 });
+
+router.delete('/:id', async (req, res) => {
+  await deleteListing(req.params.id);
+  res.sendStatus(204);
+})
 
 module.exports = router;

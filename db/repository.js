@@ -57,13 +57,33 @@ const addBooking = async (req, renterId) => {
   });
 }
 
-const getListingOwner = async (listingId) => {
+const getListing = async (listingId) => {
   const listing = await Listing.find({_id: ObjectId(listingId)});
-  return listing[0].ownerId;
+  return listing[0];
 };
 
 const getActiveListings = async (ownerId) => {
   return await Listing.find({ownerId: ObjectId(ownerId)});
+}
+
+const updateListing = async (listing, listingId) => {
+  await Listing.findByIdAndUpdate({_id: listingId}, listing, (err, result) => {
+    if (err){
+      return err;
+    } else {
+      return result._id;
+    }
+  })
+}
+
+const deleteListing = async (listingId) => {
+  await Listing.findByIdAndDelete(listingId, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return result;
+    }
+  })
 }
 
 module.exports = {
@@ -74,6 +94,8 @@ module.exports = {
   getReviews,
   getRating,
   addBooking,
-  getListingOwner,
-  getActiveListings
+  getListing,
+  getActiveListings,
+  updateListing,
+  deleteListing
 }
