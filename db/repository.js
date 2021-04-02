@@ -75,7 +75,7 @@ const getRating = async (userId) => {
   }
   const ratingTotal = reviews.map(review => review.rating).reduce((a, b) => a + b);
   const ratingAverage = ratingTotal / reviews.length;
-  return ratingAverage;
+  return Math.round(ratingAverage * 10) / 10;
 }
 
 const addBooking = async (req, renterId) => {
