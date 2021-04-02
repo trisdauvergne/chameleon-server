@@ -121,6 +121,18 @@ const getRentals = async (renterId) => {
   });
 }
 
+const getCompletedBookings = async (userId) => {
+  return await Booking.find(
+    {$or: [{renterId: userId, completed: true }, {ownerId: userId, completed: true }]}, (err, result) => {
+      if (err){
+        return err;
+      } else {
+        return result;
+      }
+    }
+  );
+}
+
 module.exports = {
   addListing,
   getListings,
@@ -136,5 +148,6 @@ module.exports = {
   getBookingsForListing,
   updateBooking,
   deleteBooking,
-  getRentals
+  getRentals,
+  getCompletedBookings
 }
