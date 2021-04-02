@@ -37,7 +37,7 @@ const getReviews = async (userId) => {
 const getRating = async (userId) => {
   const reviews = await Review.find({ownerId: ObjectId(userId)});
   if (reviews.length === 0) {
-    return '-';
+    return 'No ratings yet';
   }
   const ratingTotal = reviews.map(review => review.rating).reduce((a, b) => a + b);
   const ratingAverage = ratingTotal / reviews.length;
