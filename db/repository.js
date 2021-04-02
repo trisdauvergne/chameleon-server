@@ -31,11 +31,45 @@ const getUser = async (userId) => {
 }
 
 const getReviews = async (userId) => {
-  return await Review.find({ownerId: ObjectId(userId)});
+  return await Review.find({targetId: ObjectId(userId)});
+}
+
+const addReview = async (review) => {
+  return await Review.create(review, (err, createdReview) => {
+    if (err) {
+      console.log(err);
+    } else {
+      return createdReview._id
+    }
+  });
+}
+
+const updateReviewStatus = async (review) => {
+  const bookingId = review.bookingId;
+  const booking = await Booking.find({_id: ObjectId(bookingId)});
+  console.log(review);
+  console.log(booking);
+  if (review.authorId === booking[0].ownerId.toString()) {
+    await Booking.findByIdAndUpdate({_id: ObjectId(bookingId)}, {renterHasBeenReviewed: true}, (err, result) => {
+      if (err) {
+        return err;
+      } else {
+        return result._id;
+      }
+    })
+  } else {
+    await Booking.findByIdAndUpdate({_id: ObjectId(bookingId)}, {ownerHasBeenReviewed: true}, (err, result) => {
+      if (err) {
+        return err;
+      } else {
+        return result._id;
+      }
+    })
+  }
 }
 
 const getRating = async (userId) => {
-  const reviews = await Review.find({ownerId: ObjectId(userId)});
+  const reviews = await Review.find({targetId: ObjectId(userId)});
   if (reviews.length === 0) {
     return 'No ratings yet';
   }
@@ -133,6 +167,16 @@ const getCompletedBookings = async (userId) => {
   );
 }
 
+const updateCompletedBookings = async (id) => {
+  await Booking.findByIdAndUpdate({_id: id}, {completed: true}, (err, result) => {
+    if (err){
+      return err;
+    } else {
+      return result._id;
+    }
+  });
+}
+
 module.exports = {
   addListing,
   getListings,
@@ -149,5 +193,8 @@ module.exports = {
   updateBooking,
   deleteBooking,
   getRentals,
-  getCompletedBookings
+  getCompletedBookings,
+  addReview,
+  updateReviewStatus,
+  updateCompletedBookings
 }

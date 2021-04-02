@@ -10,8 +10,8 @@ const bookingSchema = new Schema({
     bookingTo: {type: String, required: true},
     accepted: {type: Boolean, default: false},
     completed: {type: Boolean, default: false},
-    ownerReviewed: {type: Boolean, default: false},
-    renterReviewed: {type: Boolean, default: false},
+    ownerHasBeenReviewed: {type: Boolean, default: false},
+    renterHasBeenReviewed: {type: Boolean, default: false},
 })
 
 module.exports = mongoose.model('Booking', bookingSchema);
