@@ -18,7 +18,7 @@ const frontend = process.env.NODE_ENV === 'development' ? 'http://localhost:3000
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(fileUpload({ createParentPath: true }));
-app.use(cors({credentials: true, origin: frontend, allowedHeaders: 'content-type'}));
+app.use(cors({credentials: true, origin: frontend}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
