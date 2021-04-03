@@ -3,7 +3,7 @@ const router = express.Router();
 const { addBooking, getBookingsForListing, updateBooking, deleteBooking, getRentals, getCompletedBookings, updateCompletedBookings } = require('../db/repository.js');
 
 router.post('/', async (req, res) => {
-  const bookingId = await addBooking(req.body, req.cookies['userId']);
+  const bookingId = await addBooking(req.body);
   res.location(bookingId).sendStatus(201);
 })
 

@@ -78,12 +78,8 @@ const getRating = async (userId) => {
   return Math.round(ratingAverage * 10) / 10;
 }
 
-const addBooking = async (req, renterId) => {
-  const newBooking = {
-    ...req, renterId
-  };
-
-  await Booking.create(newBooking, (err, createdBooking) => {
+const addBooking = async (booking) => {
+  await Booking.create(booking, (err, createdBooking) => {
     if (err) {
       console.log(err);
     } else {
