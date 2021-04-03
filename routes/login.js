@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
   const userId = await validateUser(req.body.username);
   console.log(req.body);
   if (userId) {
-    res.cookie('userId', `${userId}`, { httpOnly: false }).sendStatus(204);
+    res.cookie('userId', `${userId}`, { httpOnly: false, sameSite: 'none' }).sendStatus(204);
   } else {
       res.sendStatus(401);
   }
