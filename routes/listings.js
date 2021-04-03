@@ -15,7 +15,7 @@ const createListing = (req) => {
       gender: body.gender,
       price: body.price
     },
-    ownerId: req.cookies['userId']
+    ownerId: body.ownerId
   };
 
   if (req.body.currentimage) {
@@ -43,7 +43,6 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id', async (req, res) => {
-  console.log('update listing: ', req.body);
   const listing = createListing(req);
   const listingId = await updateListing(listing, req.params.id);;
   if (req.files) {
