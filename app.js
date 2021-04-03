@@ -13,7 +13,7 @@ const bookingsRouter = require('./routes/bookings');
 const app = express();
 
 const PORT = process.env.PORT || '3001';
-const frontend = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://trisdauvergne.github.io/chameleon-client/';
+const frontend = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://trisdauvergne.github.io';
 
 app.use(express.static('public'));
 app.use(cookieParser());
