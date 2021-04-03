@@ -49,6 +49,7 @@ router.post('/:id', async (req, res) => {
     req.files.image.mv(`public/uploads/${req.body.currentimage}`);
   }
   res.location(`/listings/${listingId}`).sendStatus(204);
+  res.end();
 });
 
 router.post('/', async (req, res) => {
