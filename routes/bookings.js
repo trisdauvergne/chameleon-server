@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addBooking, getBookingsForListing, updateBooking, deleteBooking, getRentals, getCompletedBookings, updateCompletedBookings } = require('../db/repository.js');
+const { addBooking, getBookingsForListing, updateBooking, deleteBooking, getRentals, getCompletedBookings, updateCompletedBookings, getBookingsByOwner } = require('../db/repository.js');
 
 router.post('/', async (req, res) => {
   const bookingId = await addBooking(req.body);
@@ -26,6 +26,11 @@ router.put('/completed/:id', async (req, res) => {
   const bookings = await updateCompletedBookings(req.params.id);
   res.sendStatus(204);
 })
+
+router.get('/owner/:id', async (req, res) => {
+  const bookings = await getBookingsByOwner(req.params.id);
+  res.json(bookings);
+});
 
 router.put('/:id', async (req, res) => {
   await updateBooking(req.params.id, req.body);

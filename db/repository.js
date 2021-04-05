@@ -173,6 +173,10 @@ const updateCompletedBookings = async (id) => {
   });
 }
 
+const getBookingsByOwner = async (ownerId) => {
+  return await Booking.find({ownerId: ObjectId(ownerId)});
+}
+
 module.exports = {
   addListing,
   getListings,
@@ -192,5 +196,6 @@ module.exports = {
   getCompletedBookings,
   addReview,
   updateReviewStatus,
-  updateCompletedBookings
+  updateCompletedBookings,
+  getBookingsByOwner
 }
