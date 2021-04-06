@@ -1,11 +1,12 @@
-const User = require('./models/user.js');
+const User = require('../models/user.js');
 
 const newUserOne = new User({
-  firstName: 'David',
-  lastName: 'Carlsberg',
-  username: 'davve_mannen',
-  email: 'david_carlsberg@hotmail.com',
-  password: 'davecave',
+  firstName: 'Erik',
+  lastName: 'Andersson',
+  username: 'erik94',
+  email: 'erik.andersson@gmail.com',
+  password: 'password123',
+  picture: '/profile/erik.jpg',
   location: {
     street: 'Alphyddevägen 8',
     postalcode: 13135,
@@ -16,11 +17,12 @@ const newUserOne = new User({
 const newUserTwo = new User({
     firstName: 'Louise',
     lastName: 'Smith',
-    username: 'football_crazy_girl',
-    email: 'ls@hotmail.com',
-    password: 'davidbeckhamGod',
+    username: 'louise.smith',
+    email: 'louise1990@hotmail.com',
+    password: 'password123',
+    picture: '/profile/louise.jpg',
     location: {
-      street: 'Tre Kronors väg 29',
+      street: 'Tre Kronors väg 20',
       postalcode: 13131,
       area: 'Nacka'
     }
@@ -29,9 +31,10 @@ const newUserTwo = new User({
   const newUserThree = new User({
     firstName: 'Henrik',
     lastName: 'Eriksson',
-    username: 'normalGuy',
-    email: 'volvoking@gmail.com',
-    password: 'volvo740',
+    username: 'henkeeriksson',
+    email: 'henrik.e84@gmail.com',
+    password: 'password123',
+    picture: '/profile/henrik.jpg',
     location: {
       street: 'Birger Jarlsgatan 74',
       postalcode: 11420,
@@ -40,24 +43,26 @@ const newUserTwo = new User({
   });
 
   const newUserFour = new User({
-    firstName: 'Kenneth',
-    lastName: 'Hedman',
-    username: 'daddycool',
-    email: 'kenneth@gmail.com',
-    password: 'ilovejosephine',
+    firstName: 'Anna',
+    lastName: 'Pettersson',
+    username: 'annaP',
+    email: 'petterson.anna@gmail.com',
+    password: 'password123',
+    picture: '/profile/anna.jpg',
     location: {
-      street: 'Krokanvägen 37',
+      street: 'Krokanvägen 10',
       postalcode: 12869,
       area: 'Sköndal'
     }
   });
 
   const newUserFive = new User({
-    firstName: 'Kylie',
-    lastName: 'Jenner',
-    username: 'longlegs',
-    email: 'kyliej@jenner.inc',
-    password: 'ilovemyself',
+    firstName: 'Sofia',
+    lastName: 'Hansson',
+    username: 'sooofia89',
+    email: 'sofia.hansson@gmail.com',
+    password: 'password123',
+    picture: '/profile/sofia.jpg',
     location: {
       street: 'Strandvägen 3',
       postalcode: 11451,
