@@ -70,6 +70,20 @@ const newUserTwo = new User({
     }
   });
 
+  const newUserSix = new User({
+    firstName: 'James',
+    lastName: 'Potter',
+    username: 'jpotter',
+    email: 'james.potter@gmail.com',
+    password: 'password123',
+    picture: '/profile/james.jpg',
+    location: {
+      street: 'Per Lindeströms Väg 3',
+      postalcode: 12146,
+      area: 'Hammarbyhöjden'
+    }
+  });
+
 newUserOne.save((err) => {
   if (err) {
     console.log(err);
@@ -95,6 +109,12 @@ newUserTwo.save((err) => {
   });
 
   newUserFive.save((err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+
+  newUserSix.save((err) => {
     if (err) {
       console.log(err);
     }

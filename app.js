@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 require('dotenv').config();
+// require('./db/mockData/mockUsers.js');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const listingsRouter = require('./routes/listings');
