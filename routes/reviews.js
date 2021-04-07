@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { getReviews,addReview, updateReviewStatus } = require('../db/repository.js');
+const { getReviews,addReview, updateReviewStatus, getReviewsByBookingId } = require('../db/repository.js');
 
 router.get('/:id', async (req, res) => {
   const reviews = await getReviews(req.params.id);
+  res.json(reviews);
+})
+
+router.get('/booking/:id', async (req, res) => {
+  const reviews = await getReviewsByBookingId(req.params.id);
   res.json(reviews);
 })
 

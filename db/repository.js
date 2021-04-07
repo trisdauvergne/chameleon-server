@@ -34,6 +34,10 @@ const getReviews = async (userId) => {
   return await Review.find({targetId: ObjectId(userId)});
 }
 
+const getReviewsByBookingId = async (booking) => {
+  return await Review.find({bookingId: ObjectId(booking)});
+}
+
 const addReview = async (review) => {
   return await Review.create(review, (err, createdReview) => {
     if (err) {
@@ -197,5 +201,6 @@ module.exports = {
   addReview,
   updateReviewStatus,
   updateCompletedBookings,
-  getBookingsByOwner
+  getBookingsByOwner,
+  getReviewsByBookingId
 }
